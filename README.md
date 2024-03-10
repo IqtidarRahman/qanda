@@ -11,7 +11,7 @@
 
 ## 0. Change Log
 
-N/A
+* 11/03: Fixed up due date / Moved `insertAdjacentHTML from able to use to prohibited`
 
 ## 1. Before you start
 
@@ -483,7 +483,7 @@ knowledge.
 
 ## 8. Submission
 
-This assignment is due *Friday 27th October, 10pm*.
+This assignment is due *Friday 29th March, 10pm*.
 
 To submit your assignment, you must you've pushed all of your code to your GitLab master branch. You can check if you've done this properly by seeing what code is on the GitLab site on your master branch.
  
