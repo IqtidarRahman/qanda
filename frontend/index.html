@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>LurkForWork</title>
+    <title>Qanda</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- You can add your styles and scripts here -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/global.css" />
@@ -11,17 +11,45 @@
 <body>
     <!-- This is an example app structure, you can modify this as much as you choose --> 
     <header>
-        <h1>lurkforwork.com</h1>
+        <h1>Qanda</h1>
         <nav>
             <li class="nav-item">Item</li>
             <li class="nav-item">Item</li>
         </nav>
     </header>
     <main role="main">
-        <!-- app goes here --> 
+        <div id='login' style='background-color: beige; display: block;'>
+            <h2>login</h2>
+            email <input id='login-email' type="text" value="james@email.com"><br>
+            password <input id='login-password' type="password" value="betty"><br>
+            <button id="login-button">Login</button>
+            <button id="login-register-button">Register</button>
+        </div>
+        <div id='register' style='background-color: lightblue; display: none;'>
+            <h2>register</h2>
+            email <input type="text"> <br>
+            name <input type="text"> <br>
+            password <input type="text"> <br>
+            confirm password <input type="text"> <br>
+            <button>submit</button>
+        </div>
+        <div id='dashboard' style='background-color: grey; display: none;'>
+            <h2>dashboard</h2>
+            <button id="logout-button">Logout</button>
+            <hr />
+            New thread!<br />
+            Title: <input type="text" id="new-thread-title" /><br />
+            Public: <input type="checkbox" id="new-thread-public" /><br />
+            Content: <textarea id="new-thread-content"></textarea><br />
+            <button id="new-thread-submit">Create</button>
+            <hr />
+            <h2>Threads</h2>
+            <div id="threads"></div>
+
+        </div>
     </main>
     <footer>
-        <p>&copy; lurkforwork.com 2022</p>
+        <p>&copy; qanda.com 2024</p>
     </footer>
     <script type="module" src="src/main.js"></script>
 </body>
