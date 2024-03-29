@@ -4,4 +4,6 @@ html, body {
     padding: 0;
     height: 100%;
     font-family: Arial;
+    font-size: 0.9em;
+    line-height: 0.5em;
 }

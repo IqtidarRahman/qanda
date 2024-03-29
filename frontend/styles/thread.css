@@ -7,7 +7,7 @@
 
 /* thread display bar on left side */
 #thread-side-bar {
-    background-color: aqua;
+    background-color: whitesmoke;
     width: 300px;
     flex: 0 0 300px;
 }
@@ -15,13 +15,20 @@
 /* main thread display */
 #thread-main-container {
     background-color: aquamarine;
+    padding: 2em;
     width: 100%;
     flex: 1;
 }
 
 /* individual thread style (sidebar) */
 .thread-preview {
-    height: 200px;
+    padding-top: 0.2em;
+    height: 100px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    border-top: none;
 }
 
 /* individual thread style (main display) */

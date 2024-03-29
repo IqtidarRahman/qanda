@@ -163,7 +163,6 @@ document.getElementById('more-threads-btn').addEventListener('click', () => {
 
 const threadConstruct = (threadId) => {
     const threadDom = document.createElement('div');
-    threadDom.style.backgroundColor = 'white';
 
     fetch('http://localhost:5005' + `/thread?id=${threadId}`, {
         method: 'GET',
@@ -192,15 +191,14 @@ const threadConstruct = (threadId) => {
                 threadLikes.innerText = 'Likes: ' + data.likes;
                 threadDom.appendChild(threadLikes);
                 
-                const threadThread = document.createElement('p');
-                threadThread.innerText = data.id + 'Thread: ' + threadId;
-                threadDom.appendChild(threadThread);
-                
-                console.log(threadDom);
+                // const threadThread = document.createElement('p');
+                // threadThread.innerText = data.id + 'Thread: ' + threadId;
+                // threadDom.appendChild(threadThread);
+                // const lineBreak = document.createElement('hr');
+                // threadDom.appendChild(lineBreak);
 			}
 		});
 	});
-    
     threadDom.className = 'thread-preview';
     threadDom.id = threadId;
     
