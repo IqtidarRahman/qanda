@@ -1,0 +1,45 @@
+#thread-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+}
+
+/* thread display bar on left side */
+#thread-side-bar {
+    background-color: whitesmoke;
+    width: 300px;
+    flex: 0 0 300px;
+}
+
+/* main thread display */
+#thread-main-container {
+    background-color: aquamarine;
+    padding: 2em;
+    width: 100%;
+    flex: 1;
+}
+
+/* individual thread style (sidebar) */
+.thread-preview {
+    padding-top: 0.2em;
+    height: 100px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    border-top: none;
+}
+
+/* individual thread style (main display) */
+
+/* other */
+#edit-modal {
+    animation-name: animatetop;
+    animation-duration: 1s;  
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
