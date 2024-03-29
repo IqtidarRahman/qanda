@@ -14,7 +14,6 @@ const goToPage = (newPage) => {
 
 let threadCount = 0;
 let currentDisplayedThread = null;
-let mainThreadCreator = null;
 let userId;
 
 // 
@@ -128,7 +127,6 @@ const loadThreads = (start) => {
                         document.getElementById('threads').appendChild(threadDetails);
                         clickThreadPreview(threadId);
                     } else {
-                        console.log('smth fucked up with threadDetails')
                         console.log(threadDetails)
                     }
 				}
@@ -187,12 +185,16 @@ const threadConstruct = (threadId) => {
                 threadDom.appendChild(threadCreatedAt);
                 
                 const threadCreatorId = document.createElement('p');
-                threadCreatorId.innerText = data.creatorId;
+                threadCreatorId.innerText = 'Creator:' + data.creatorId;
                 threadDom.appendChild(threadCreatorId);
                 
                 const threadLikes = document.createElement('p');
                 threadLikes.innerText = 'Likes: ' + data.likes;
                 threadDom.appendChild(threadLikes);
+                
+                const threadThread = document.createElement('p');
+                threadThread.innerText = data.id + 'Thread: ' + threadId;
+                threadDom.appendChild(threadThread);
                 
                 console.log(threadDom);
 			}
@@ -207,7 +209,6 @@ const threadConstruct = (threadId) => {
 
 
 const clickThreadPreview = (threadId) => {
-    currentDisplayedThread = threadId;
     const threadElement = document.getElementById(threadId);
     if (!threadElement) {
         console.error(`Thread with ID '${threadId}' not found`);
@@ -215,8 +216,10 @@ const clickThreadPreview = (threadId) => {
     }
     
     threadElement.addEventListener('click', () => {
+        currentDisplayedThread = threadId;
         updateMainThread(threadId);
         document.getElementById('interact-container').style.display = 'block';
+        checkUserCreateMainThread();
     });
     
 }
@@ -224,7 +227,6 @@ const clickThreadPreview = (threadId) => {
 const updateMainThread = (threadId) => {
     const threadMain = document.getElementById('thread-main');
     threadMain.innerText = "";
-    checkUserCreateMainThread();
 
     fetch('http://localhost:5005' + `/thread?id=${threadId}`, {
         method: 'GET',
@@ -248,10 +250,12 @@ const updateMainThread = (threadId) => {
                 const threadLikes = document.createElement('p');
                 threadLikes.innerText = 'Likes: ' + data.likes;
                 threadMain.appendChild(threadLikes);
-                
-                mainThreadCreator = data.creatorId;
 
-                console.log(threadMain);
+                const threadThread = document.createElement('p');
+                threadThread.innerText = 'Thread: ' + data.id;
+                threadMain.appendChild(threadThread);
+
+                document.getElementById('like-btn').innerText = `Like ${data.likes.length}`;
             }
         });
     });
@@ -262,11 +266,6 @@ const updateMainThread = (threadId) => {
 
 const checkUserCreateMainThread = () => {
     getMainThreadUserId().then((threadUserId) => {
-        // console.log(userId);
-        // console.log(getMainThreadUserId());
-        // const gmt = getMainThreadUserId();
-        // console.log('gmt creator id: ' + gmt)
-        // console.log(`i am saying ${userId}=${gmt}=${mainThreadCreator} is `,userId == getMainThreadUserId())
         if (userId == threadUserId) {
             console.log('user matches main thread');
             document.getElementById('edit-btn').style.display = 'inline';
@@ -296,8 +295,8 @@ const getMainThreadUserId = () => {
             alert(data.error);
         } else {
             threadUserId = data.creatorId;
-            console.log('threadUserId:', data.creatorId);
-            console.log('data.creatorId:', data.creatorId);
+            // console.log('threadUserId:', data.creatorId);
+            // console.log('data.creatorId:', data.creatorId);
             return threadUserId;
         }
     });
@@ -324,9 +323,6 @@ document.querySelector('.close').addEventListener('click', () => {
     editModal.style.display = 'none';
 });
 
-
-
-
 // Save edited thread
 document.getElementById('save-edit').addEventListener('click', () => {
     const updatedTitle = document.getElementById('edit-title').value;
@@ -334,9 +330,7 @@ document.getElementById('save-edit').addEventListener('click', () => {
     const isPrivate = document.getElementById('edit-private').value === 'on';
     const isLocked = document.getElementById('edit-locked').value === 'on';
 
-    console.log(updatedTitle);
-    console.log(updatedContent);
-    console.log(String(currentDisplayedThread));
+    console.log(currentDisplayedThread);
 
     // Send updated data to backend using PUT request
     fetch('http://localhost:5005/thread', {
@@ -363,7 +357,61 @@ document.getElementById('save-edit').addEventListener('click', () => {
         existingMain.parentNode.replaceChild(newMain,existingMain);
     })
     .catch(error => console.error('Error updating thread:', error));
-    console.log(1);
+});
+
+// Delete
+document.getElementById('delete-btn').addEventListener('click', () => {
+    const toBeDeleted = document.getElementById(currentDisplayedThread);
+    toBeDeleted.remove();
+    const child = document.getElementById('thread-main');
+    const parent = child.parentNode;
+
+    const replacement = document.createElement('div');
+    replacement.innerText = 'Select a thread';
+
+    parent.replaceChild(replacement, child);
+
+    fetch('http://localhost:5005' + '/thread', {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': currentDisplayedThread,
+        })
+    }).then((response) => {
+        response.json().then((data) => {
+            if (data.error) {
+                alert(data.error);
+            }
+        });
+    });
+
+    loadDashboard();
+});
+
+// Like
+document.getElementById('like-btn').addEventListener('click', () => {
+    fetch('http://localhost:5005' + `/thread/like`, {
+        method: 'PUT',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': title,
+            isPublic: isPublic,
+            content: content,
+        })
+    }).then((response) => { 
+        response.json().then((data) => {
+            if (data.error) {
+                alert(data.error);
+            }
+        });
+    });
+
 });
 
 
