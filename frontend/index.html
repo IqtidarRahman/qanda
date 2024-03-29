@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- You can add your styles and scripts here -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/global.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/thread.css" />
 </head>
 <body>
     <!-- This is an example app structure, you can modify this as much as you choose --> 
@@ -22,8 +23,8 @@
             <h2>login</h2>
             email <input id='login-email' type="text" value="james@email.com"><br>
             password <input id='login-password' type="password" value="betty"><br>
-            <button id="login-button">Login</button>
-            <button id="login-register-button">Register</button>
+            <button id="login-btn">Login</button>
+            <button id="login-register-btn">Register</button>
         </div>
         <div id='register' style='background-color: lightblue; display: none;'>
             <h2>register</h2>
@@ -33,19 +34,49 @@
             confirm password <input type="text"> <br>
             <button>submit</button>
         </div>
-        <div id='dashboard' style='background-color: grey; display: none;'>
+        <div id='dashboard' style='background-color: whitesmoke; display: none;'>
             <h2>dashboard</h2>
-            <button id="logout-button">Logout</button>
-            <hr />
+            <button id="logout-btn">Logout</button><br>
+            <button id="new-thread-create-btn"><h2>Create</h2></button>
+            
+            <div id="thread-container">
+                <div id="thread-side-bar">
+                    <h2>Threads</h2>
+                    <div id="threads"></div>
+                    <button id="more-threads-btn">More</button>
+                </div>
+                <div id="thread-main-container">
+                    <div id="interact-container" style="display: none;">
+                        <button id="edit-btn">Edit</button>
+                        <button id="delete-btn">Delete</button>
+                        <button id="like-btn">Like</button>
+                        <button id="watch-btn">Watch</button>
+                    </div>
+                    <div id="edit-modal" style="display: none;">
+                        <div id="modal-header">
+                            <h2>Edit Thread</h2>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div id="modal-body">
+                            <input type="text" id="edit-title" placeholder="Enter Title"><br>
+                            <textarea id="edit-content" placeholder="Enter Content"></textarea><br>
+                            <input type="checkbox" id="edit-private" />Private<br />
+                            <input type="checkbox" id="edit-locked" />Locked<br />
+                            <button id="save-edit">Save</Locked>
+                        </div>
+                    </div>
+                    <div id="thread-main">
+                        <div id="select-thread-text">Select a thread</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="new-thread-scrn" style="background-color: lightskyblue; display: none;">
             New thread!<br />
             Title: <input type="text" id="new-thread-title" /><br />
             Public: <input type="checkbox" id="new-thread-public" /><br />
             Content: <textarea id="new-thread-content"></textarea><br />
-            <button id="new-thread-submit">Create</button>
-            <hr />
-            <h2>Threads</h2>
-            <div id="threads"></div>
-
+            <button id="new-thread-post-btn">Post thread</button>
         </div>
     </main>
     <footer>

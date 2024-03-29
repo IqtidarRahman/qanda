@@ -1,0 +1,38 @@
+#thread-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+}
+
+/* thread display bar on left side */
+#thread-side-bar {
+    background-color: aqua;
+    width: 300px;
+    flex: 0 0 300px;
+}
+
+/* main thread display */
+#thread-main-container {
+    background-color: aquamarine;
+    width: 100%;
+    flex: 1;
+}
+
+/* individual thread style (sidebar) */
+.thread-preview {
+    height: 200px;
+}
+
+/* individual thread style (main display) */
+
+/* other */
+#edit-modal {
+    animation-name: animatetop;
+    animation-duration: 1s;  
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
